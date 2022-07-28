@@ -1,10 +1,12 @@
 {
-  "name": "admin-example",
+  "name": "external-invoice-viewer",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint --ext js,jsx,ts,tsx .",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
+    "lint:locales": "intl-equalizer",
+    "test": "cd ./react && yarn test"
   },
   "husky": {
     "hooks": {
@@ -21,14 +23,18 @@
     ]
   },
   "devDependencies": {
-    "@vtex/prettier-config": "^0.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-vtex": "^12.4.0",
-    "eslint-config-vtex-react": "^6.4.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.2",
-    "prettier": "^2.0.5",
-    "typescript": "^3.8.3",
+    "@types/node": "^18.6.2",
+    "@vtex/danger": "^0.2.7",
+    "@vtex/intl-equalizer": "^2.5.0",
+    "@vtex/prettier-config": "^1.0.0",
+    "@vtex/tsconfig": "^0.6.0",
+    "eslint": "^8.20.0",
+    "eslint-config-vtex": "^15.0.1",
+    "eslint-config-vtex-react": "^9.0.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.5.1",
+    "typescript": "^4.6.2",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.131.0/public/@types/vtex.render-runtime"
   }
 }

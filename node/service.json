@@ -1,0 +1,27 @@
+{
+  "stack": "nodejs",
+  "memory": 512,
+  "ttl": 60,
+  "timeout": 60,
+  "minReplicas": 2,
+  "maxReplicas": 12,
+  "cpu": {
+    "type": "shared",
+    "value": 80,
+    "scalingPercentage": 95
+  },
+  "routes": {
+    "mail": {
+      "path": "/_v/mail",
+      "public": true
+    },
+    "template": {
+      "path": "/_v/segment/template",
+      "public": true
+    },
+    "invoiceExternal": {
+      "path": "/_v/private/financial-commission/external/invoice/*id",
+      "public": true
+    }
+  }
+}
