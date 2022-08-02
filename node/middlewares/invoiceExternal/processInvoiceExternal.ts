@@ -1,8 +1,8 @@
 import type { DocumentResponse } from '@vtex/clients/build/clients/masterData'
-import type { ExternalInvoice } from 'vtex.marketplace-financial-commission'
+import type { ExternalInvoice } from 'vtex.external-invoice-viewer'
 
-import { config, JOB_STATUS } from '../../constants'
 import type { InvoiceExternal } from '../../typings/externalInvoice'
+import { config, JOB_STATUS } from '../../utils/constants'
 import { randomId } from '../../utils/randomId'
 
 interface JobHistory {

@@ -1,10 +1,7 @@
 import readFile from '../utils/readFile'
-import { typeIntegration } from '../utils/typeIntegration'
 
-export const GetBody = async (ctx: Context) => {
-
-  const MESSAGE_BODY =
-    readFile('../assets/invoiceDetailExternal.html')
+export const GetBody = async () => {
+  const MESSAGE_BODY = readFile('../assets/invoiceDetailExternal.html')
 
   const invoiceDetailMessage = {
     Name: 'invoice-detail',

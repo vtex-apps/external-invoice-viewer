@@ -10,7 +10,7 @@ export async function templateMethod(ctx: Context, next: () => Promise<any>) {
   if (templateResponse) {
     ctx.body = { template: templateResponse }
   } else {
-    const templateBody = await GetBody(ctx)
+    const templateBody = await GetBody()
     const templateCreated = await template.publishTemplate(templateBody)
 
     ctx.body = { template: templateCreated }

@@ -1,4 +1,4 @@
-import type { ExternalInvoice } from 'vtex.marketplace-financial-commission'
+import type { ExternalInvoice } from 'vtex.external-invoice-viewer'
 
 export async function updateInvoiceExternal(
   ctx: Context,

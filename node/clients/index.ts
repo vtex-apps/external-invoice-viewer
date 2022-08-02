@@ -1,9 +1,7 @@
 import type { ClientsConfig } from '@vtex/api'
-import type {
-  ExternalInvoice,
-} from 'vtex.marketplace-financial-commission'
 import { IOClients, LRUCache } from '@vtex/api'
 import { masterDataFor } from '@vtex/clients'
+import type { ExternalInvoice } from 'vtex.external-invoice-viewer'
 
 import Mail from './mail'
 import Template from './template'
@@ -12,7 +10,6 @@ export class Clients extends IOClients {
   public get mail() {
     return this.getOrSet('mail', Mail)
   }
-
 
   public get template() {
     return this.getOrSet('template', Template)

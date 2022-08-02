@@ -1,8 +1,8 @@
-import { config } from '../../constants'
 import type {
   EmailInvoiceData,
   InvoiceExternal,
 } from '../../typings/externalInvoice'
+import { config } from '../../utils/constants'
 
 export const sendEmailInvoiceExternal = async (
   ctx: Context,

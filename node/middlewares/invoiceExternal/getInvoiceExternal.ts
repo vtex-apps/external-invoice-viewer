@@ -1,3 +1,5 @@
+import type { ParsedUrlQuery } from 'querystring'
+
 const assembleWhere = async (query: any): Promise<string> => {
   const sellerName = (query.sellerName ?? '') as string
   const sellerId = (query.sellerId ?? '') as string
@@ -38,21 +40,21 @@ const assembleWhere = async (query: any): Promise<string> => {
   return where
 }
 
-export async function getInvoiceExternal(
-  ctx: Context,
-  next: () => Promise<any>
-) {
+export async function getInvoiceExternal({
+  ctx,
+  query,
+  id,
+}: {
+  ctx: Context
+  query: ParsedUrlQuery
+  id?: string | undefined
+}) {
   const {
-    vtex: {
-      route: {
-        params: { id },
-      },
-    },
-    query,
     clients: { externalInvoices },
   } = ctx
 
   let sellerInvoices
+  let where = ''
 
   if (id !== '' && id !== undefined) {
     const pagination = {
@@ -79,7 +81,9 @@ export async function getInvoiceExternal(
         : ctx.query.pageSize) as string
     )
 
-    const where = await assembleWhere(query)
+    if (query) {
+      where = await assembleWhere(query)
+    }
 
     const pagination = {
       page,
@@ -102,9 +106,8 @@ export async function getInvoiceExternal(
     }
   }
 
-  ctx.status = 200
-  ctx.body = sellerInvoices
-  ctx.set('Cache-Control', 'no-cache ')
-
-  await next()
+  return {
+    status: 200,
+    body: sellerInvoices,
+  }
 }

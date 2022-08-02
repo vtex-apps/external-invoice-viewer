@@ -12,15 +12,15 @@
   },
   "routes": {
     "mail": {
-      "path": "/_v/mail",
+      "path": "/_v/external-invoice-viewer/mail",
       "public": true
     },
     "template": {
-      "path": "/_v/segment/template",
+      "path": "/_v/external-invoice-viewer/segment/template",
       "public": true
     },
     "invoiceExternal": {
-      "path": "/_v/private/financial-commission/external/invoice/*id",
+      "path": "/_v/private/external-invoice-viewer/invoice/*id",
       "public": true
     }
   }

@@ -1,33 +1,28 @@
+import type { InvoiceExternal } from '../../typings/externalInvoice'
 import { processInvoiceExternal } from './processInvoiceExternal'
 import { sendEmailInvoiceExternal } from './sendEmailInvoiceExternal'
 
 export async function createInvoiceExternal(
   ctx: Context,
-  next: () => Promise<any>
+  dataInvoice: InvoiceExternal
 ) {
-  const {
-    state: {
-      body: { requestData },
-    },
-  } = ctx
-
   let status
   let body
 
-  const documentMD = await processInvoiceExternal(ctx, requestData)
+  const documentMD = await processInvoiceExternal(ctx, dataInvoice)
   const { DocumentId } = documentMD
   const documentId = DocumentId
 
   if (documentId) {
     try {
-      await sendEmailInvoiceExternal(ctx, documentId, requestData)
+      await sendEmailInvoiceExternal(ctx, documentId, dataInvoice)
     } catch (error) {
       console.error(error)
     }
 
     status = 200
     body = {
-      message: `Invoice Created, Shortly you will receive an email with the invoice created to your email address. ${requestData.seller.contact.email}`,
+      message: `Invoice Created, Shortly you will receive an email with the invoice created to your email address. ${dataInvoice.seller.contact.email}`,
       id: documentId,
     }
   } else {
@@ -38,9 +33,8 @@ export async function createInvoiceExternal(
     }
   }
 
-  ctx.status = status
-  ctx.body = body
-  ctx.set('Cache-Control', 'no-cache ')
-
-  await next()
+  return {
+    status,
+    body,
+  }
 }

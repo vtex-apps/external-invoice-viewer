@@ -1,11 +1,9 @@
 /* eslint-disable no-useless-escape */
 import type { ErrorLike } from '@vtex/api'
-import { AuthenticationError, UserInputError } from '@vtex/api'
+import { UserInputError } from '@vtex/api'
 import { json } from 'co-body'
 
-import { INVOICE_STATUS, validationMessage } from '../../constants'
-import { typeIntegration } from '../../utils/typeIntegration'
-// import type { InvoiceExternal } from '../../typings/externalInvoice'
+import { INVOICE_STATUS, validationMessage } from '../../utils/constants'
 
 export async function validateParamsExternal(
   ctx: Context,
@@ -23,12 +21,6 @@ export async function validateParamsExternal(
 
   switch (method) {
     case 'PATCH': {
-      const integration = await typeIntegration(ctx)
-
-      if (TypeIntegration.external !== integration) {
-        throw new AuthenticationError('Invalid type integration')
-      }
-
       if (!requestData || JSON.stringify(requestData) === '{}') {
         const error: ErrorLike = {
           message: 'Body is requerid',
@@ -118,12 +110,6 @@ export async function validateParamsExternal(
     }
 
     case 'POST': {
-      const integration = await typeIntegration(ctx)
-
-      if (TypeIntegration.external !== integration) {
-        throw new AuthenticationError('Invalid type integration')
-      }
-
       if (!requestData || JSON.stringify(requestData) === '{}') {
         const error: ErrorLike = {
           message: 'Body is requerid',
@@ -185,12 +171,6 @@ export async function validateParamsExternal(
     }
 
     case 'DELETE': {
-      const integration = await typeIntegration(ctx)
-
-      if (TypeIntegration.external !== integration) {
-        throw new AuthenticationError('Invalid type integration')
-      }
-
       if (!params.id || params.id === '' || params.id === null) {
         const error: ErrorLike = {
           message: `The param id is requerid`,
