@@ -5,5 +5,8 @@
   "admin-example.navigation.details.search.kws": "details, mock, test, hello",
   "admin-example.navigation.table.search.kws": "table, mock, test, bye",
   "admin-example.hello-world": "Example Admin",
-  "admin-example.details": "Details page"
+  "admin-example.details": "Details page",
+
+  "admin/navigation.section-title": "Invoices",
+  "admin/navigation.invoices.label": "Seller Invoices"
 }

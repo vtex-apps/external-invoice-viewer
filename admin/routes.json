@@ -3,8 +3,8 @@
     "component": "AdminExample",
     "path": "/admin/app/example"
   },
-  "admin.app.example-detail": {
-    "component": "AdminExampleDetail",
-    "path": "/admin/app/example/:id"
+  "admin.app.seller-invoices": {
+    "component": "SellerInvoices",
+    "path": "/admin/app/sellerInvoices"
   }
 }
