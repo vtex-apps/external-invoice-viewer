@@ -1,0 +1,23 @@
+type Query {
+  """
+  Retrieve list external invoices
+  """
+  listExternalInvoices(
+    listInvoicesParams: ListInvoicesParams
+  ): ListExternalInvoices @cacheControl(scope: PUBLIC, maxAge: LONG)
+
+  """
+  Retrieve one external invoices
+  """
+  getExternalInvoice(id: String!): ListExternalInvoices
+    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+
+  """
+  Retrieve template for order detail
+  """
+  getTemplate: String @cacheControl(scope: PRIVATE, maxAge: LONG)
+}
+
+type Mutation {
+  sendEmail(emailData: EmailDataInput!): String
+}
