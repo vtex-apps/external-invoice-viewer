@@ -1,13 +1,5 @@
-export async function deleteInvoiceExternal(
-  ctx: Context,
-  next: () => Promise<any>
-) {
+export async function deleteInvoiceExternal(ctx: Context, id: string) {
   const {
-    vtex: {
-      route: {
-        params: { id },
-      },
-    },
     clients: { externalInvoices },
   } = ctx
 
@@ -31,9 +23,8 @@ export async function deleteInvoiceExternal(
     status = 404
   }
 
-  ctx.status = status
-  ctx.body = message
-  ctx.set('Cache-Control', 'no-cache ')
-
-  await next()
+  return {
+    status,
+    body: message,
+  }
 }

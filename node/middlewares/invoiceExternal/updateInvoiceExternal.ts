@@ -1,18 +1,13 @@
 import type { ExternalInvoice } from 'vtex.external-invoice-viewer'
 
+import type { InvoiceExternal } from '../../typings/externalInvoice'
+
 export async function updateInvoiceExternal(
   ctx: Context,
-  next: () => Promise<any>
+  dataInvoice: InvoiceExternal,
+  id: string
 ) {
   const {
-    state: {
-      body: { requestData },
-    },
-    vtex: {
-      route: {
-        params: { id },
-      },
-    },
     clients: { externalInvoices },
   } = ctx
 
@@ -24,7 +19,7 @@ export async function updateInvoiceExternal(
   ])) as ExternalInvoice
 
   const generateBody = () => {
-    const { status, invoiceCreatedDate, seller, jsonData } = requestData
+    const { status, invoiceCreatedDate, seller, jsonData } = dataInvoice
     let sellerData
 
     if (seller) {
@@ -68,9 +63,8 @@ export async function updateInvoiceExternal(
     statusResponse = 404
   }
 
-  ctx.status = statusResponse
-  ctx.body = message
-  ctx.set('Cache-Control', 'no-cache ')
-
-  await next()
+  return {
+    status: statusResponse,
+    body: message,
+  }
 }

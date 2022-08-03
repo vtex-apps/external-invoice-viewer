@@ -46,7 +46,7 @@ export async function getInvoiceExternal({
   id,
 }: {
   ctx: Context
-  query: ParsedUrlQuery
+  query?: ParsedUrlQuery
   id?: string | undefined
 }) {
   const {

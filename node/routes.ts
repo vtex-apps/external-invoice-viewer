@@ -2,10 +2,12 @@ import { method } from '@vtex/api'
 
 import { sendMail, templateMethod } from './middlewares'
 import { validateParamsExternal } from './middlewares/invoiceExternal/validateParamsExternal'
-import { deleteInvoiceExternal } from './middlewares/invoiceExternal/deleteInvoiceExternal'
-import { updateInvoiceExternal } from './middlewares/invoiceExternal/updateInvoiceExternal'
-import { serviceCreateInvoiceExternal } from './services/invoiceExternal/serviceCreateInvoiceExternal'
-import { serviceGetInvoiceExternal } from './services/invoiceExternal/serviceGetInvoiceExternal'
+import {
+  serviceCreateInvoiceExternal,
+  serviceGetInvoiceExternal,
+  serviceDeleteInvoiceExternal,
+  serviceUpdateInvoiceExternal,
+} from './services'
 
 const template = templateMethod
 
@@ -19,8 +21,8 @@ const routes = {
   invoiceExternal: method({
     POST: [validateParamsExternal, serviceCreateInvoiceExternal],
     GET: [serviceGetInvoiceExternal],
-    DELETE: [validateParamsExternal, deleteInvoiceExternal],
-    PATCH: [validateParamsExternal, updateInvoiceExternal],
+    DELETE: [validateParamsExternal, serviceDeleteInvoiceExternal],
+    PATCH: [validateParamsExternal, serviceUpdateInvoiceExternal],
   }),
 }
 
