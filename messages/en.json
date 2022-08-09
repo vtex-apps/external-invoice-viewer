@@ -7,6 +7,15 @@
   "admin-example.hello-world": "Example Admin",
   "admin-example.details": "Details page",
 
+  "admin/table.pagination-show": "Show rows",
+  "admin/table.pagination-textOf": "of",
+  "admin/table.title-datepicker-start": "Start",
+  "admin/table.title-datepicker-final": "Final",
+  "admin/table-seller-invoice": "ID invoice",
+  "admin/table-seller-created": "Invoice Created Date",
+  "admin/table-seller-status": "Status",
+  "admin/table.title-filter": "Filter",
+  "admin/table.title-status-label": "Choose invoice status",
   "admin/navigation.section-title": "Invoices",
   "admin/navigation.invoices.label": "Seller Invoices"
 }
