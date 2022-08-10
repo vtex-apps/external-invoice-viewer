@@ -29,19 +29,3 @@ export const filterEmptyObj = (obj: any) => {
 
   return obj
 }
-
-export const filterSellerValues = (data: SellerSelect[], status: boolean) => {
-  let stringId = ''
-  let countTotalItems = 0
-  let sellerFilter = ''
-  let sellerId = ''
-
-  data.forEach((item: SellerSelect) => {
-    stringId += status ? `${item.label},` : `${item.value.id},`
-    sellerFilter += `${item.label},`
-    countTotalItems += 1
-    sellerId += `${item.value.id},`
-  })
-
-  return { stringId, sellerFilter, countTotalItems, sellerId }
-}

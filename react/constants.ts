@@ -5,13 +5,17 @@ type StatusOptions = {
   }
 }
 
-export const status: StatusOptions = {
+export const statuses: StatusOptions = {
   paid: {
     bgColor: '#134CD8',
     fontColor: '#FFF',
   },
-  unpaid: {
+  partial: {
     bgColor: '#BCBCBC',
+    fontColor: '#FFF',
+  },
+  unpaid: {
+    bgColor: '#FF4C4C',
     fontColor: '#FFF',
   },
 }

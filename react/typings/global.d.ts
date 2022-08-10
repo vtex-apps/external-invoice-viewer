@@ -59,16 +59,10 @@ interface FilterProps {
     defaultFinalDate: string
     today: boolean
   }
-  optionsSelect: SellerSelect[]
   filterDates?: (v: string, x: string) => void
-  setTotalItems?: (v: number) => void
   setPages?: (v: number) => void
-  setSellerId: (v: string) => void
-  setId?: (v: string) => void
-  multiValue: boolean
   optionsStatus?: SellerSelect[]
-  setStatusOrders?: (v: string) => void
-  disableSelect?: boolean
+  setStatus?: (v: string) => void
 }
 
 interface Invoice {
@@ -89,13 +83,6 @@ interface PaginationProps {
   onNextClick: () => void
   changeRows: (row: number) => void
   onPrevClick: () => void
-}
-
-interface ResponseFilter {
-  stringId: string
-  sellerFilter: string
-  countTotalItems: number
-  sellerId: string
 }
 
 interface SchemaTable {

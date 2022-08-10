@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   ButtonWithIcon,
   IconFilter,
@@ -16,22 +16,12 @@ import {
   yesterday,
   today,
   filterEmptyObj,
-  filterSellerValues,
 } from '../../utils/calculateDate'
 
 const Filter: FC<FilterProps> = (props) => {
-  const {
-    defaultDate,
-    filterDates,
-    optionsSelect,
-    optionsStatus,
-    setId,
-    setSellerId,
-    setStatusOrders,
-    setTotalItems,
-  } = props
+  const { defaultDate, filterDates, optionsStatus, setStatus } = props
 
-  const { query, setQuery } = useRuntime()
+  const { setQuery } = useRuntime()
   const [dataFilter, setDataFilter] = useState<DateFilter>({
     startDateFilter: firstDay,
     finalDateFilter: defaultDate?.today ? today : yesterday,
@@ -40,20 +30,8 @@ const Filter: FC<FilterProps> = (props) => {
   })
 
   const changesValuesTable = useCallback(
-    (dataFilterValues?: SellerSelect[], dataFilterStatus?: SellerSelect[]) => {
-      let response: ResponseFilter = {
-        stringId: '',
-        sellerFilter: '',
-        countTotalItems: 0,
-        sellerId: '',
-      }
-
+    (dataFilterStatus?: SellerSelect[]) => {
       let stringStatus = ''
-
-      if (dataFilterValues?.length)
-        response = filterSellerValues(dataFilterValues, !!setStatusOrders)
-      else
-        response = filterSellerValues(dataFilter.dataFilter, !!setStatusOrders)
 
       if (dataFilterStatus?.length) {
         dataFilterStatus.forEach((status) => {
@@ -61,7 +39,7 @@ const Filter: FC<FilterProps> = (props) => {
         })
       } else {
         dataFilter.statusFilter.forEach((status) => {
-          stringStatus += `${status.label},`
+          stringStatus += `${status?.label},`
         })
       }
 
@@ -69,13 +47,9 @@ const Filter: FC<FilterProps> = (props) => {
         getDateString(dataFilter.startDateFilter),
         getDateString(dataFilter.finalDateFilter)
       )
-      setSellerId(response.stringId.slice(0, -1))
-      setId?.(response.sellerId.slice(0, -1))
-      setStatusOrders?.(stringStatus.slice(0, -1))
-      setTotalItems?.(response.countTotalItems)
+      setStatus?.(stringStatus.slice(0, -1))
 
       let queryObj = {
-        sellerName: response.sellerFilter.slice(0, -1),
         status: stringStatus.slice(0, -1),
         startDate: defaultDate ? getDateString(dataFilter.startDateFilter) : '',
         finalDate: defaultDate ? getDateString(dataFilter.finalDateFilter) : '',
@@ -91,51 +65,10 @@ const Filter: FC<FilterProps> = (props) => {
       dataFilter.statusFilter,
       defaultDate,
       filterDates,
-      setId,
       setQuery,
-      setSellerId,
-      setStatusOrders,
-      setTotalItems,
+      setStatus,
     ]
   )
-
-  useEffect(() => {
-    if (!optionsSelect.length) return
-
-    // TODO: Add validation to filterQuery (use a constant)
-    let filterQuery: any = []
-    let filterQueryStatus: any = []
-
-    if (query?.sellerName) {
-      const separateString = query.sellerName.split(',')
-
-      filterQuery = separateString.map((seller: any) =>
-        optionsSelect.find((nameQuery) => nameQuery.label === seller)
-      )
-    }
-
-    if (query?.status && optionsStatus) {
-      const separateString = query.status.split(',')
-
-      filterQueryStatus = separateString.map((seller: any) =>
-        optionsStatus?.find((nameQuery) => nameQuery.label === seller)
-      )
-    }
-
-    setDataFilter({
-      ...dataFilter,
-      statusFilter: filterQueryStatus,
-      dataFilter: filterQuery,
-    })
-    changesValuesTable(filterQuery, filterQueryStatus)
-  }, [
-    changesValuesTable,
-    dataFilter,
-    optionsSelect,
-    optionsStatus,
-    query?.sellerName,
-    query?.status,
-  ])
 
   const modifyDataFilterStatus = (values: SellerSelect[]) => {
     setDataFilter({ ...dataFilter, statusFilter: values })
@@ -159,10 +92,7 @@ const Filter: FC<FilterProps> = (props) => {
       statusFilter: [],
     })
     filterDates?.(getDateString(firstDay), getDateString(lastDate))
-    setSellerId('')
-    setTotalItems?.(0)
     setQuery({
-      sellerName: undefined,
       status: undefined,
       startDate: undefined,
       finalDate: undefined,
@@ -177,7 +107,7 @@ const Filter: FC<FilterProps> = (props) => {
             options={optionsStatus}
             dataFilter={dataFilter.statusFilter}
             setDataFilter={modifyDataFilterStatus}
-            multi
+            multi={false}
             customLabel={
               <FormattedMessage id="admin/table.title-status-label" />
             }

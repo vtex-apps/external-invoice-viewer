@@ -5,7 +5,7 @@ import { Divider, Layout, Modal, PageBlock, PageHeader } from 'vtex.styleguide'
 
 import Invoices from './components/Invoices'
 import { Filter } from './components'
-import { status, defaultStartString, defaultFinalString } from './constants'
+import { statuses, defaultStartString, defaultFinalString } from './constants'
 import INVOICES from './graphql/getInvoices.gql'
 
 const dateDefaultPicker = {
@@ -16,24 +16,14 @@ const dateDefaultPicker = {
   today: true,
 }
 
-const CommissionReportDetail: FC<DetailProps> = (props) => {
-  // const { account, dataSellers, invoicesQuery } = props
-  const { account, dataSellers } = props
-
+const CommissionReportDetail: FC<DetailProps> = () => {
   const [startDate, setStartDate] = useState('')
   const [finalDate, setFinalDate] = useState('')
-  const [optionsSelect, setOptionsSelect] = useState<SellerSelect[]>([])
-  const [sellerName, setSellerName] = useState(account ?? '')
-  const [sellerId, setSellerId] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [dateRate] = useState<DateRateType[]>([])
   const [optionsStatus, setOptionsStatus] = useState<SellerSelect[]>([])
-  const [statusOrders, setStatusOrders] = useState('')
+  const [status, setStatus] = useState('')
   const [tableInvoices, setTableInvoices] = useState<Invoice[]>([])
-
-  console.info(sellerId)
-  console.info(statusOrders)
-  console.info(sellerName)
 
   const formatDate = (valueDate: number) => {
     const validateDate = valueDate <= 9 ? `0${valueDate}` : valueDate
@@ -42,28 +32,14 @@ const CommissionReportDetail: FC<DetailProps> = (props) => {
   }
 
   useEffect(() => {
-    if (!dataSellers) return
-
-    const builtSelectSeller: SellerSelect[] = []
-
-    dataSellers.getSellers.sellers.forEach((seller: DataSellerSelect) => {
-      builtSelectSeller.push({
-        value: { id: seller.id, name: seller.name },
-        label: seller.name,
-      })
-    })
-    setOptionsSelect(builtSelectSeller)
-  }, [dataSellers])
-
-  useEffect(() => {
     if (optionsStatus.length) return
 
     const buildSelectStatus: SellerSelect[] = []
 
-    Object.keys(status).forEach((orderStatus) => {
+    Object.keys(statuses).forEach((itemStatus) => {
       buildSelectStatus.push({
-        value: { id: orderStatus, name: orderStatus },
-        label: orderStatus,
+        value: { id: itemStatus, name: itemStatus },
+        label: itemStatus,
       })
     })
     setOptionsStatus(buildSelectStatus)
@@ -146,14 +122,9 @@ const CommissionReportDetail: FC<DetailProps> = (props) => {
             <PageBlock>
               <Filter
                 defaultDate={dateDefaultPicker}
-                optionsSelect={optionsSelect}
                 filterDates={filterDates}
-                setSellerId={setSellerName}
-                setId={setSellerId}
-                multiValue={false}
                 optionsStatus={optionsStatus}
-                setStatusOrders={setStatusOrders}
-                disableSelect={Boolean(account)}
+                setStatus={setStatus}
               />
             </PageBlock>
           </div>
@@ -162,12 +133,11 @@ const CommissionReportDetail: FC<DetailProps> = (props) => {
       <div className="mt7">
         <Invoices
           invoicesQuery={INVOICES}
-          account={account}
-          sellerName={sellerName}
           startDate={startDate}
           finalDate={finalDate}
           dataTableInvoice={tableInvoices}
           setDataTableInvoice={setTableInvoices}
+          status={status}
         />
       </div>
     </Layout>

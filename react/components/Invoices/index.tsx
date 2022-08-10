@@ -3,32 +3,29 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { FormattedMessage } from 'react-intl'
-import { useRuntime } from 'vtex.render-runtime'
 import { PageBlock, Tag } from 'vtex.styleguide'
 
-import { status } from '../../constants'
+import { statuses } from '../../constants'
 import TableComponent from '../Table'
 import PaginationComponent from '../Table/pagination'
 
 interface DetailProps {
   invoicesQuery: DocumentNode
-  account?: string
-  sellerName?: string
   startDate?: string
   finalDate?: string
   dataTableInvoice: Invoice[]
   setDataTableInvoice: (data: Invoice[]) => void
+  status: string | null
 }
 
 const Invoices: FC<DetailProps> = ({
-  sellerName,
   invoicesQuery,
   startDate,
   finalDate,
   dataTableInvoice,
   setDataTableInvoice,
+  status,
 }) => {
-  const { query } = useRuntime()
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [itemFrom, setItemFrom] = useState(1)
@@ -39,33 +36,24 @@ const Invoices: FC<DetailProps> = ({
     ssr: false,
     pollInterval: 0,
     variables: {
-      sellerInvoiceParams: {
-        sellerName,
-        dates: {
-          startDate,
-          endDate: finalDate,
-        },
+      listInvoicesParams: {
+        createdDateInitial: startDate,
+        createdDateEnd: finalDate,
         pagination: {
           page,
           pageSize,
         },
+        status: status === 'undefined' ? '' : status,
       },
     },
   })
-
-  useEffect(() => {
-    if (sellerName === '' && !query?.sellerName) {
-      setDataTableInvoice([])
-      setTotalItems(0)
-    }
-  }, [query, sellerName, setDataTableInvoice])
 
   useEffect(() => {
     if (dataInvoices) {
       setDataTableInvoice(dataInvoices.listExternalInvoices.data)
       setTotalItems(dataInvoices.listExternalInvoices.pagination.total)
     }
-  }, [dataInvoices, sellerName])
+  }, [dataInvoices])
 
   const schemaTableInvoice = [
     {
@@ -93,12 +81,12 @@ const Invoices: FC<DetailProps> = ({
       title: <FormattedMessage id="admin/table-seller-status" />,
       cellRenderer: (props: any) => {
         // eslint-disable-next-line array-callback-return
-        const getColor = Object.keys(status).find(
+        const getColor = Object.keys(statuses).find(
           (itemStatus) => itemStatus === props.data
         )
 
-        const bgColor = getColor ? status[getColor].bgColor : ''
-        const fontcolor = getColor ? status[getColor].fontColor : ''
+        const bgColor = getColor ? statuses[getColor].bgColor : ''
+        const fontcolor = getColor ? statuses[getColor].fontColor : ''
 
         return (
           <Tag bgColor={bgColor} color={fontcolor}>
