@@ -6,10 +6,6 @@
     "subSection": "example",
     "subSectionItems": [
       {
-        "labelId": "admin-example.navigation.label-table",
-        "path": "/admin/example"
-      },
-      {
         "labelId": "admin/navigation.invoices.label",
         "path": "/admin/sellerInvoices"
       }
