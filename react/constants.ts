@@ -7,15 +7,15 @@ type StatusOptions = {
 
 export const statuses: StatusOptions = {
   paid: {
-    bgColor: '#134CD8',
+    bgColor: '#8BC34A',
     fontColor: '#FFF',
   },
   partial: {
-    bgColor: '#BCBCBC',
+    bgColor: '#FFB100',
     fontColor: '#FFF',
   },
   unpaid: {
-    bgColor: '#FF4C4C',
+    bgColor: '#BCBCBC',
     fontColor: '#FFF',
   },
 }

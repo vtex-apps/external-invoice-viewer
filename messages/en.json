@@ -1,12 +1,6 @@
 {
-  "admin-example.navigation.label-group": "Example admins",
-  "admin-example.navigation.label-table": "Example table",
-  "admin-example.navigation.search.kws": "test, mock, fake",
-  "admin-example.navigation.details.search.kws": "details, mock, test, hello",
-  "admin-example.navigation.table.search.kws": "table, mock, test, bye",
-  "admin-example.hello-world": "Example Admin",
-  "admin-example.details": "Details page",
-
+  "admin/table.empty-state": "Use the filters to search and display data",
+  "admin/table.empty-state-title": "There's nothing here",
   "admin/table.pagination-show": "Show rows",
   "admin/table.pagination-textOf": "of",
   "admin/table.title-datepicker-start": "Start",
@@ -17,5 +11,7 @@
   "admin/table.title-filter": "Filter",
   "admin/table.title-status-label": "Choose invoice status",
   "admin/navigation.section-title": "Invoices",
-  "admin/navigation.invoices.label": "Seller Invoices"
+  "admin/navigation.invoices.label": "Seller Invoices",
+  "admin/form-settings.button-email": "Send Email",
+  "admin/email-success": "Email sent"
 }

@@ -62,7 +62,7 @@ const Invoices: FC<DetailProps> = ({
       cellRenderer: (props: CellRendererProps) => {
         return (
           <a
-            href={`/admin/app/commission-report/invoice/${props.data}`}
+            href={`/admin/app/sellerInvoices/invoice/${props.data}`}
             style={{ color: '#0C389F' }}
             target="_self"
             rel="noreferrer"
