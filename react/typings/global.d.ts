@@ -74,6 +74,14 @@ interface Invoice {
   totalizers?: Totalizers
 }
 
+interface ModalConfirmData {
+  email: string
+  isModalOpen: boolean
+  sendEmail: () => void
+  setEmail: (v: string) => void
+  setIsModalOpen: (v: boolean) => void
+}
+
 interface PaginationProps {
   setPageSize: (v: number) => void
   currentPage: number
