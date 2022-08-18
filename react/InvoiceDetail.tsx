@@ -1,26 +1,26 @@
 import Handlebars from 'handlebars'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { useQuery, useMutation } from 'react-apollo'
+import { useMutation, useQuery } from 'react-apollo'
 import { FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import { Alert, Button, Layout, PageHeader, Spinner } from 'vtex.styleguide'
-// import type { DocumentNode } from 'graphql'
 
+import ModalConfirm from './components/ModalConfirm'
 import GET_INVOICE from './graphql/getInvoice.gql'
 import GET_TEMPLATE from './graphql/getTemplate.gql'
 import SEND_EMAIL from './graphql/sendEmail.gql'
 
 const InvoiceDetail: FC = () => {
-  // const { getTemplate, sendEmail } = props
-
   const { route } = useRuntime()
   const { params } = route
   const { id } = params
 
+  const [email, setEmail] = useState('')
   const [emailSent, setEmailSent] = useState(false)
   const [template, setTemplate] = useState('')
   const [invoice, setInvoice] = useState<Invoice>({})
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [sendEmailFunc, { data: emailData }] = useMutation(SEND_EMAIL)
 
   const { data } = useQuery(GET_INVOICE, {
@@ -53,6 +53,8 @@ const InvoiceDetail: FC = () => {
       ...rawInvoice,
       jsonData: data ? JSON.parse(rawInvoice?.jsonData) : {},
     })
+
+    if (rawInvoice) setEmail(rawInvoice.seller.contact.email)
   }, [data])
 
   if (!template) {
@@ -70,7 +72,7 @@ const InvoiceDetail: FC = () => {
     sendEmailFunc({
       variables: {
         emailData: {
-          email: invoice?.seller.contact.email,
+          email,
           jsonData: JSON.stringify(invoice),
         },
       },
@@ -85,7 +87,7 @@ const InvoiceDetail: FC = () => {
             {<FormattedMessage id="admin/email-success" />}
           </Alert>
         ) : (
-          <Button onClick={handleSendEmail}>
+          <Button onClick={() => setIsModalOpen(!isModalOpen)}>
             <FormattedMessage id="admin/form-settings.button-email" />
           </Button>
         )}
@@ -98,6 +100,13 @@ const InvoiceDetail: FC = () => {
           paddingTop: '100%',
         }}
       >
+        <ModalConfirm
+          email={email}
+          setEmail={setEmail}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          sendEmail={handleSendEmail}
+        />
         <iframe
           srcDoc={htmlString}
           title="invoice detail"
