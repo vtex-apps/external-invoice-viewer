@@ -1,10 +1,10 @@
 {
-  "admin.app.example": {
-    "component": "AdminExample",
-    "path": "/admin/app/example"
+  "admin.app.seller-invoices": {
+    "component": "SellerInvoices",
+    "path": "/admin/app/sellerInvoices"
   },
-  "admin.app.example-detail": {
-    "component": "AdminExampleDetail",
-    "path": "/admin/app/example/:id"
+  "admin.app.invoiceDetail": {
+    "component": "InvoiceDetail",
+    "path": "/admin/app/sellerInvoices/invoice/:id"
   }
 }

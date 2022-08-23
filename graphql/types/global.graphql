@@ -1,0 +1,49 @@
+input PaginationIn {
+  page: Int
+  pageSize: Int
+}
+
+type PaginationOut {
+  page: Int
+  pageSize: Int
+  total: Int
+}
+
+input ListInvoicesParams {
+  sellerName: String
+  sellerId: String
+  createdDateInitial: String
+  createdDateEnd: String
+  status: String
+  pagination: PaginationIn
+}
+
+type Contact {
+  email: String
+}
+
+type Seller {
+  id: String
+  name: String
+  contact: Contact
+}
+
+type ExternalInvoices {
+  id: String
+  status: String
+  accountName: String
+  seller: Seller
+  invoiceCreatedDate: String
+  jsonData: String
+  comment: String
+}
+
+type ListExternalInvoices {
+  data: [ExternalInvoices]
+  pagination: PaginationOut
+}
+
+input EmailDataInput {
+  email: String
+  jsonData: String
+}

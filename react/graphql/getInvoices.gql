@@ -1,0 +1,24 @@
+query INVOICES($listInvoicesParams: ListInvoicesParams) {
+  listExternalInvoices(listInvoicesParams: $listInvoicesParams) {
+    data {
+      id
+      status
+      accountName
+      seller {
+        id
+        name
+        contact {
+          email
+        }
+      }
+      invoiceCreatedDate
+      jsonData
+      comment
+    }
+    pagination {
+      page
+      pageSize
+      total
+    }
+  }
+}
