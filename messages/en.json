@@ -16,7 +16,6 @@
   "admin/table.title-filter": "Filter",
   "admin/table.title-status-label": "Choose invoice status",
   "admin/navigation.section-title": "Invoices",
-  "admin/navigation.invoices.label": "Seller Invoices",
   "admin/form-settings.button-email": "Send Email",
   "admin/email-success": "Email sent"
 }

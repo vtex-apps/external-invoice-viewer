@@ -6,8 +6,8 @@
     "subSection": "example",
     "subSectionItems": [
       {
-        "labelId": "admin/navigation.invoices.label",
-        "path": "/admin/sellerInvoices"
+        "labelId": "admin/navigation.section-title",
+        "path": "/admin/invoices"
       }
     ]
   }
