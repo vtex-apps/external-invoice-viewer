@@ -1,7 +1,7 @@
 {
   "name": "external-invoice-viewer",
   "vendor": "vtex",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "title": "Viewer commission external for client",
   "description": "",
   "scripts": {

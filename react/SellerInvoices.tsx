@@ -87,7 +87,7 @@ const CommissionReportDetail: FC<DetailProps> = () => {
     <Layout
       pageHeader={
         <PageHeader
-          title={<FormattedMessage id="admin/navigation.invoices.label" />}
+          title={<FormattedMessage id="admin/navigation.section-title" />}
         />
       }
     >
