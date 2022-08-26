@@ -23,9 +23,7 @@ Using your console, logged in the desired account run the command:
   ![invoice-detail](images/image4.png)
 
 - A copy of the invoice detail can be sent by e-mail. By default the e-mail will be sent to the vendor's address, but this value can be changed
-  ![send-email](images/image5.png)
-  ![address-confirmation](images/image6.png)
-  ![email-success](images/image7.png)
+  ![send-email](images/sendEmail.gif)
 
 ## **API REST**
 
