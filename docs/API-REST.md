@@ -86,7 +86,108 @@ curl --request GET \
 
 ## Send email
 
-[WIP]
+![](https://img.shields.io/static/v1?label=&message=POST&color=blue) `https://{{accountmarketplace}}.myvtex.com/_v/external-invoice-viewer/mail`
+
+<br />
+
+#### **Path parameters**
+
+| Attribute          | Type   | Mandatory | Description                                  |
+| ------------------ | ------ | --------- | -------------------------------------------- |
+| accountmarketplace | string | Yes       | Name of the VTEX account of the marketplace. |
+
+<br />
+
+#### **Request**
+
+| Attribute | Type   | Mandatory | Description                                                                                                              |
+| --------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| email     | string | Yes       | Mail of the recipient to send.                                                                                           |
+| jsonData  | string | Yes       | Contains the json in string format of the invoiced data to be sent in the email according to the parameterized template. |
+
+```bash
+curl --request POST \
+  --url https://example.myvtex.com/_v/external-invoice-viewer/mail \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"email": "destinataio@example.com",
+	"jsonData": "jsonData" : {
+        "jsonData": {
+            "orders": [
+                {
+                "orderId": "123456-01",
+                "sellerOrderId": "GCB-123456-01",
+                "totalComission": 0,
+                "totalOrderValue": 522.5,
+                "totalDiscounts": 0,
+                "totalOrdersItems": 522.5,
+                "totalShipping": 0,
+                "totalTax": 0,
+                "totalOrderRate": null
+                }
+            ],
+            "totalizers": { "subTotal": 0, "fee": 0, "total": 0 },
+            "comment": "Invoicemanuallycreatedon2022-06-14"
+        },
+        "id": "sellerId1_ebf209071ae7",
+        "status": "unpaid",
+        "invoiceCreatedDate": "2022-06-14",
+        "seller": {
+            "name": "sellerName",
+            "id": "sellerId1",
+            "contact": { "phone": "xxxxxx" }
+        }
+    }
+}'
+```
+
+<br />
+
+```json
+{
+  "email": "destinataio@example.com",
+  "jsonData": {
+    "jsonData": {
+      "orders": [
+        {
+          "orderId": "123456-01",
+          "sellerOrderId": "GCB-123456-01",
+          "totalComission": 0,
+          "totalOrderValue": 522.5,
+          "totalDiscounts": 0,
+          "totalOrdersItems": 522.5,
+          "totalShipping": 0,
+          "totalTax": 0,
+          "totalOrderRate": null
+        }
+      ],
+      "totalizers": { "subTotal": 0, "fee": 0, "total": 0 },
+      "comment": "Invoicemanuallycreatedon2022-06-14"
+    },
+    "id": "sellerId1_ebf209071ae7",
+    "status": "unpaid",
+    "invoiceCreatedDate": "2022-06-14",
+    "seller": {
+      "name": "sellerName",
+      "id": "sellerId1",
+      "contact": { "phone": "xxxxxx" }
+    }
+  }
+}
+```
+
+<br />
+
+#### **Response**
+
+<br />
+
+![](https://img.shields.io/static/v1?label=&message=200&color=green) `OK`
+
+```shell
+ok
+
+```
 
 <br />
 
@@ -125,8 +226,7 @@ Retrieve the list of invoices.
 
 ```bash
 curl --request GET \
-  --url https://example.myvtex.com/_v/private/financial-commission/external/invoice?sellerId=sell21octandrei113 \
-  --header 'Authorization: Bearer 123456'
+  --url https://example.myvtex.com/_v/private/external-invoice-viewer/invoice
 ```
 
 <br />
@@ -209,8 +309,7 @@ Retrieve a single invoice.
 
 ```bash
 curl --request GET \
-  --url https://example.myvtex.com/_v/private/financial-commission/external/invoice/12345655 \
-  --header 'Authorization: Bearer 123456'
+  --url https://example.myvtex.com/_v/private/external-invoice-viewer/invoice/12345655
 ```
 
 <br />
@@ -321,8 +420,7 @@ Create a single external invoice.
 <br />
 
 ```bash
-curl --location --request POST 'https://{{accountmarketplace}}.myvtex.com/_v/private/financial-commission/external/invoice/' \
---header 'Authorization: Bearer 123456' \
+curl --location --request POST 'https://{{accountmarketplace}}.myvtex.com/_v/private/external-invoice-viewer/invoice' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 	"status": "unpaid",
@@ -398,3 +496,74 @@ Update a single external invoice.
   }
 }
 ```
+
+<br />
+
+```bash
+curl --location --request PATCH 'https://{{accountmarketplace}}.myvtex.com/_v/private/external-invoice-viewer/invoice/{{invoiceId}}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+	"seller": {
+		"contact": {
+			"email": "emailName@domain.com"
+		}
+	}
+}'
+```
+
+<br />
+
+#### **Response**
+
+![](https://img.shields.io/static/v1?label=&message=200&color=green) `OK`
+
+```json
+{
+  "invoiceId": "Id_0c0d6c5e7f2c",
+  "message": "The invoice has been successfully update "
+}
+```
+
+<br />
+__________________________________________________
+
+## Delete Invoice
+
+![](https://img.shields.io/static/v1?label=&message=DELETE&color=red) `https://{{accountmarketplace}}.myvtex.com/_v/private/external-invoice-viewer/invoice/{{invoiceId}}`
+
+Delete a single external invoice.
+
+> **warning** This process is definitive.
+
+<br />
+
+#### **Path parameters**
+
+| Attribute          | Type   | Mandatory | Description                                  |
+| ------------------ | ------ | --------- | -------------------------------------------- |
+| accountmarketplace | string | Yes       | Name of the VTEX account of the marketplace. |
+| invoiceId          | string | Yes       | InvoiceId                                    |
+
+<br />
+
+```bash
+curl --location --request DELETE 'https://{{accountmarketplace}}.myvtex.com/_v/private/external-invoice-viewer/invoice/{{invoiceId}}' \¿
+
+```
+
+<br />
+
+#### **Response**
+
+![](https://img.shields.io/static/v1?label=&message=200&color=green) `OK`
+
+```json
+{
+  "invoiceId": "Id_1234566",
+  "message": "The invoice has been successfully deleted "
+}
+```
+
+<br />
+
+---
